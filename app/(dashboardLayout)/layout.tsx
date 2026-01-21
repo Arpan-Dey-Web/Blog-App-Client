@@ -1,22 +1,63 @@
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+"use client";
 
 import { AppSidebar } from "@/components/layout/app-sidebar";
-import { SiteHeader } from "@/components/layout/site-header";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 
-export default function Page({ children }: { children: React.ReactNode }) {
+type User = {
+  role: "admin" | "user";
+};
+
+interface DashboardLayoutProps {
+  admin: React.ReactNode;
+  user: React.ReactNode;
+}
+
+export default function DashboardLayout({ admin, user }: DashboardLayoutProps) {
+  const userInfo: User = {
+    role: "admin",
+  };
+
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant="inset" />
+    <SidebarProvider>
+      <AppSidebar userInfo={userInfo} />
       <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col ">{children}</div>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="#">
+                  Building Your Application
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          {userInfo.role === "admin" ? admin : user}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

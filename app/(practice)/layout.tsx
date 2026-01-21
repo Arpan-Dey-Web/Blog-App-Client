@@ -5,10 +5,12 @@ export default function Practicelayout({
   children,
   marcketingSlot,
   salesSlot,
+  userSlot,
 }: {
   children: React.ReactNode;
   marcketingSlot: React.ReactNode;
   salesSlot: React.ReactNode;
+  userSlot: React.ReactNode;
 }) {
   return (
     <div>
@@ -25,11 +27,15 @@ export default function Practicelayout({
         <Link className="hover:underline " href={"/sales"}>
           Sales
         </Link>
+        <Link className="hover:underline " href={"/user"}>
+          User
+        </Link>
       </nav>
 
       <div className="flex gap-10 mb-10">
         {marcketingSlot}
         {salesSlot}
+        {userSlot}
       </div>
       <div>{children}</div>
     </div>
