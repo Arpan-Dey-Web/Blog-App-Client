@@ -2,14 +2,9 @@
 
 import { type Icon } from "@tabler/icons-react";
 import Link from "next/link";
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
+
 import { CloudLightning } from "lucide-react";
+import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 
 export type Route = {
   title: string;

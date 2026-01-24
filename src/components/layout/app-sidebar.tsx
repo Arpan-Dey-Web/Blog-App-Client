@@ -1,16 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { NavMain } from "@/components/layout/nav-main";
-import { NavUser } from "@/components/layout/nav-user";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-} from "@/components/ui/sidebar";
-import { adminRoutes } from "@/src/app/routes/adminRoutes";
-import { userRoutes } from "@/src/app/routes/userRoutes";
+
 import { Route } from "@/src/types";
+import { adminRoutes } from "@/src/routes/adminRoutes";
+import { userRoutes } from "@/src/routes/userRoutes";
+import { Sidebar, SidebarContent, SidebarFooter } from "../ui/sidebar";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 
 type UserInfo = {
   role: "admin" | "user";

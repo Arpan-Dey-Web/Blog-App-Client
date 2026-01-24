@@ -1,6 +1,6 @@
 "use client";
 
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { AppSidebar } from "@/src/components/layout/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,13 +8,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
+} from "@/src/components/ui/breadcrumb";
+import { Separator } from "@/src/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "@/src/components/ui/sidebar";
 
 type User = {
   role: "admin" | "user";

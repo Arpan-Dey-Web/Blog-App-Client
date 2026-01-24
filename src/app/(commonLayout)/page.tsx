@@ -1,23 +1,17 @@
-
+import BlogCard from "@/src/components/modules/auth/homepage/BlogCard";
 import { Button } from "@/src/components/ui/button";
-import { authClient } from "@/src/lib/auth-client";
-import { cookies } from "next/headers";
+import { blogService } from "@/src/service/blog.service";
+import { userService } from "@/src/service/user.service";
+import { BlogPost } from "@/src/types";
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  console.log(cookieStore.get("better-auth.session_token"));
-  const res = await fetch("http://localhost:5000/api/auth/get-session", {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-    cache: "no-store",
-  });
-  const session = await res.json();
-  console.log(session);
+  const { data } = await blogService.getBlogPosts();
 
   return (
-    <div>
-      <Button variant="outline">Click Me</Button>
+    <div className="grid grid-cols-3 gap-4 max-w-7xl mx-auto">
+      {data?.data?.map((post: BlogPost) => (
+        <BlogCard key={post.id} post={post} />
+      ))}
     </div>
   );
 }
