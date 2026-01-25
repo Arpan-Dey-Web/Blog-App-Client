@@ -4,12 +4,12 @@ import { BlogPost } from "@/src/types";
 
 export default async function Home() {
   const { data } = await blogService.getBlogPosts(
-    {
-      isFeatured: true,
-    },
-    {
-      cache: "no-store",
-    },
+    // {
+    //   isFeatured: true,
+    // },
+    // {
+    //   cache: "no-store",
+    // },
   );
 
   return (

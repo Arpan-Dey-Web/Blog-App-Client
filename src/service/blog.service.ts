@@ -1,4 +1,5 @@
 
+import { error } from "console";
 import { env } from "../env";
 const API_URL = env.API_URL
 
@@ -65,6 +66,16 @@ export const blogService = {
         } catch (error) {
             console.log(error);
             return { data: null, error: { message: "something went wrong" } }
+        }
+    },
+    getBlogByid: async function (id: string) {
+        try {
+            const res = await fetch(`${API_URL}/posts/${id}`)
+            const data = await res.json()
+            return { data }
+        } catch (error) {
+            console.log(error);
+            return { data: null, error: error }
         }
     }
 }
