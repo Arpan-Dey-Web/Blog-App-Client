@@ -6,11 +6,9 @@ import { Separator } from "@/src/components/ui/separator";
 import { blogService } from "@/src/service/blog.service";
 import { BlogPost } from "@/src/types";
 
-// this function will build specifiq some content statically
-export async function generateStaticParams() {
-  // Return a list of `params` to populate the [slug] dynamic segment
-  // return korte hobe => [  {id: hkhkhkhokjhk}, {id:hfjkdafhdfhak}, {id: jjljjjjlkjlj} ]
+export const dynamicParams = false;
 
+export async function generateStaticParams() {
   const { data } = await blogService.getBlogPosts();
 
   return data?.data
@@ -18,6 +16,10 @@ export async function generateStaticParams() {
       id: blog.id,
     }))
     .splice(0, 3);
+
+  // this function will build specifiq some content statically
+  // Return a list of `params` to populate the [slug] dynamic segment
+  // return korte hobe => [  {id: hkhkhkhokjhk}, {id:hfjkdafhdfhak}, {id: jjljjjjlkjlj} ]
 }
 
 export default async function BlockPage({
