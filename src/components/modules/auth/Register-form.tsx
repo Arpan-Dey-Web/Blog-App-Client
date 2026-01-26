@@ -64,6 +64,38 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                 );
               }}
             />
+            <form.Field
+              name="email"
+              children={(field) => {
+                return (
+                  <Field>
+                    <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                    <Input
+                      type="email"
+                      id={field.name}
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  </Field>
+                );
+              }}
+            />
+            <form.Field
+              name="password"
+              children={(field) => {
+                return (
+                  <Field>
+                    <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                    <Input
+                      type="password"
+                      id={field.name}
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  </Field>
+                );
+              }}
+            />
           </FieldGroup>
         </form>
       </CardContent>
