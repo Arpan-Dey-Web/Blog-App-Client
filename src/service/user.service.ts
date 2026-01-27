@@ -16,14 +16,14 @@ export const userService = {
             });
             const session = await res.json();
 
-            if (session=== null) {
+            if (session === null) {
                 return { data: null, error: { message: "session is missing" } }
             }
 
             return {
                 data: session,
             };
-           
+
 
         } catch (error) {
             console.log(error);

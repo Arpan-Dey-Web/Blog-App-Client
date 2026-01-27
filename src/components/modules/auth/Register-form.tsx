@@ -17,7 +17,6 @@ import {
   FieldLabel,
 } from "../../ui/field";
 import { Input } from "../../ui/input";
-
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { authClient } from "@/src/lib/auth-client";
@@ -28,7 +27,6 @@ const formSchema = z.object({
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
 });
-
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const form = useForm({
     defaultValues: {

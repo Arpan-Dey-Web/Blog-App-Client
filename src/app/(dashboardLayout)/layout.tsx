@@ -1,5 +1,3 @@
-"use client";
-
 import { AppSidebar } from "@/src/components/layout/app-sidebar";
 import {
   Breadcrumb,
@@ -15,24 +13,28 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/src/components/ui/sidebar";
+import { Roles } from "@/src/constants/roles";
+import { userService } from "@/src/service/user.service";
 
-type User = {
-  role: "admin" | "user";
-};
-
-interface DashboardLayoutProps {
+export default async function DashboardLayout({
+  admin,
+  user,
+}: {
+  children: React.ReactNode;
   admin: React.ReactNode;
   user: React.ReactNode;
-}
+}) {
+  const { data } = await userService.getSession();
 
-export default function DashboardLayout({ admin, user }: DashboardLayoutProps) {
-  const userInfo: User = {
-    role: "admin",
+  console.log("dahsboard Layout", data.user.role);
+
+  const userInfo = {
+    role: data.user.role,
   };
 
   return (
     <SidebarProvider>
-      <AppSidebar userInfo={userInfo} />
+      <AppSidebar user={userInfo} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
@@ -40,23 +42,10 @@ export default function DashboardLayout({ admin, user }: DashboardLayoutProps) {
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          
         </header>
-
         <div className="flex flex-1 flex-col gap-4 p-4">
-          {userInfo.role === "admin" ? admin : user}
+          {userInfo.role === Roles.admin ? admin : user}
         </div>
       </SidebarInset>
     </SidebarProvider>
