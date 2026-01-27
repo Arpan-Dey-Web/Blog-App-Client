@@ -17,7 +17,7 @@ const API_URL = env.API_URL;
 export default function CreateBlogFormServer() {
   const createBlog = async (formData: FormData) => {
     "use server";
-    console.log(formData.get("title"), "content", "tag");
+ 
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
     const tags = formData.get("tags") as string;
@@ -30,15 +30,7 @@ export default function CreateBlogFormServer() {
         .map((item) => item.trim())
         .filter((item) => item !== ""),
     };
-    const cookieStore = await cookies();
-    const res = await fetch(`${API_URL}/posts`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Cookie: cookieStore.toString(),
-      },
-      body: JSON.stringify(blogData),
-    });
+ 
     if (res.ok) {
       revalidateTag("blogPosts", "max");
       // updateTag("blogPosts"); // use one of them only 

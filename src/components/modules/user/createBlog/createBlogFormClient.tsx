@@ -1,14 +1,26 @@
 "use client";
+
 import { Textarea } from "@/components/ui/textarea";
+import { createBlogPost } from "@/src/actions/blog.action";
 import { Button } from "@/src/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/src/components/ui/field";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { z } from "zod";
-
-
 
 const blogSchema = z.object({
   title: z
@@ -47,14 +59,12 @@ export function CreateBlogFormClient() {
       console.log(blogData);
 
       try {
-        // const res = await createBlogPost(blogData);
-
-        // console.log(res);
-
-        // if (res.error) {
-        //   toast.error(res.error.message, { id: toastId });
-        //   return;
-        //  }
+        const res = await createBlogPost(blogData);
+        console.log(res);
+        if (res.error) {
+          toast.error(res.error.message, { id: toastId });
+          return;
+        }
 
         toast.success("Post Created", { id: 1 });
       } catch (err) {

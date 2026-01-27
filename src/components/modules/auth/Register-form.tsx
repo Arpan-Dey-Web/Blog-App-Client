@@ -1,5 +1,4 @@
 "use client";
-import { email } from "zod";
 import { Button } from "../../ui/button";
 import {
   Card,
@@ -44,22 +43,24 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         const { data, error } = await authClient.signUp.email(value);
         if (error) {
           toast.error(error.message, { id: toastId });
-        return
+          return;
         }
-        toast.success("User Created Sucessfully", {id : toastId})
+        toast.success("User Created Sucessfully", { id: toastId });
       } catch (error) {
         // console.log(error);
-        toast.error("Something Went Wrong, Please try again ,", {id:toastId})
+        toast.error("Something Went Wrong, Please try again ,", {
+          id: toastId,
+        });
       }
     },
   });
- const handleGoogleLogin = async () => {
-   const data = authClient.signIn.social({
-     provider: "google",
-     callbackURL: "http://localhost:3000",
-   });
-   console.log(data);
- };
+  const handleGoogleLogin = async () => {
+    const data = authClient.signIn.social({
+      provider: "google",
+      callbackURL: "http://localhost:3000",
+    });
+    console.log(data);
+  };
   return (
     <Card {...props}>
       <CardHeader>
@@ -145,7 +146,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       </CardContent>
       <CardFooter className="flex flex-col  gap-3">
         <Button form="register-form" type="submit" className="w-full ">
-         Register Your Account
+          Register Your Account
         </Button>
         <Button
           onClick={() => handleGoogleLogin()}

@@ -1,6 +1,8 @@
 
 
+import { cookies } from "next/headers";
 import { env } from "../env";
+
 const API_URL = env.API_URL
 
 // No Dynamic and No {cache:"no-store"} : SSG --> Static Page
@@ -16,6 +18,12 @@ interface GetBlogsParams {
 interface ServiceOptions {
     cache?: RequestCache,
     revalidate?: number
+}
+
+export interface BlogData {
+    title: string,
+    content: string,
+    tags?: string[]
 }
 
 export const blogService = {
@@ -86,5 +94,32 @@ export const blogService = {
             console.log(error);
             return { data: null, error: error }
         }
+    },
+
+    createBlogPost: async function (blogData: BlogData) {
+        try {
+            const cookieStore = await cookies();
+            const res = await fetch(`${API_URL}/posts`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    Cookie: cookieStore.toString(),
+                },
+                body: JSON.stringify(blogData),
+            });
+            const data = await res.json()
+            if (data.error) {
+                return {
+                    data: null,
+                    error: { message: data.error || " Error Post not Created" }
+                }
+            }
+            return { data: data, error: null }
+        } catch (error) {
+            return { data: null, message: 'Something went wrong' }
+        }
     }
+
 }
+
+
