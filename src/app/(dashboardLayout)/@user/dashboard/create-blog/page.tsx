@@ -1,9 +1,16 @@
-import React from 'react'
-
-export default function CreateBlogPage() {
+import { CreateBlogFormClient } from "@/src/components/modules/user/createBlog/createBlogFormClient";
+import { blogService } from "@/src/service/blog.service";
+import { BlogPost } from "@/src/types";
+// import CreateBlogFormServer from "@/src/components/modules/user/createBlog/createBlogFormServer";
+export default async function CreateBlogPage() {
+  const { data } = await blogService.getBlogPosts({}, { cache: "no-store" });
   return (
     <div>
-      <h1>CreateBlogPage</h1>
+      {/* <CreateBlogFormServer /> */}
+      <CreateBlogFormClient />
+      {data.data.map((item: BlogPost) => (
+        <p key={item.id}> {item.title}</p>
+      ))}
     </div>
   );
 }

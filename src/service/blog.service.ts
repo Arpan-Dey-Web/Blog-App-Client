@@ -1,5 +1,5 @@
 
-import { error } from "console";
+
 import { env } from "../env";
 const API_URL = env.API_URL
 
@@ -46,20 +46,29 @@ export const blogService = {
             if (options?.revalidate) {
                 config.next = { revalidate: options.revalidate }
             }
-            console.log(url.toString(), config);
+
+            config.next = { ...config, tags: ["blogPosts"] }
+
+            // console.log(url.toString(), config);
 
             // , {
             // cache :"no-store"  //dynamic korbe protibar reload a data fetch kore niye asbe
             //     next: { revalidate: 60 } //ISR -> follow korbe
             // }
-            const res = await fetch(url.toString())
+            const res = await fetch(url.toString(), config)
 
+            // const res = await fetch(url.toString(), {
+            //     next ;{
+            //         tags:["blogPosts"]
+            //     }
+            // })
             const data = await res.json()
 
             //  this is and example
             //  if (data.sucess) {
             //     return
             // }
+
             return {
                 data, error: null
             }

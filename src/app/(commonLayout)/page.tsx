@@ -1,4 +1,4 @@
-import BlogCard from "@/src/components/modules/auth/homepage/BlogCard";
+import BlogCard from "@/src/components/modules/homepage/BlogCard";
 import { blogService } from "@/src/service/blog.service";
 import { BlogPost } from "@/src/types";
 
